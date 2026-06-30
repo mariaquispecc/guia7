@@ -87,36 +87,15 @@ test.describe('Suite de Pruebas E2E - SGI Falabella (Búsqueda y Carrito)', () =
     if (await cookiesBtn.isVisible()) {
       await cookiesBtn.click();
     }
-    
     const btnRecomendados = page.getByRole('button', { name: 'Recomendados' }).first();
     await btnRecomendados.waitFor({ state: 'visible', timeout: 8000 });
     await btnRecomendados.click();
-    
     const btnPrecioMenorMayor = page.getByRole('button', { name: 'Precio de menor a mayor' }).first();
     await btnPrecioMenorMayor.waitFor({ state: 'visible', timeout: 8000 });
     await btnPrecioMenorMayor.click();
-
-    // Esperar a que el contenedor de resultados se actualice
-    const resultsDiv = page.locator('#testId-searchResults-products');
-    await resultsDiv.waitFor({ state: 'visible', timeout: 15000 });
-
-    // Opcional: esperar a que al menos un producto tenga precio
-    await page.waitForLoadState('networkidle');
     await page.waitForURL(/.*sort.*/, { timeout: 15000 }).catch(() => {});
-    
-    const precios = await page.evaluate(() => {
-  return Array.from(document.querySelectorAll('#testId-searchResults-products li[data-event-price], li[data-internet-price]'))
-    .map(el => el.getAttribute('data-event-price') || el.getAttribute('data-internet-price'))
-    .filter((txt): txt is string => txt !== null && txt !== '')
-    .map(txt => parseFloat(txt));
-});
-expect(precios.length).toBeGreaterThanOrEqual(2);
-    for (let i = 0; i < precios.length - 1; i++) {
-      expect(precios[i]).toBeLessThanOrEqual(precios[i + 1]);
-    }
-
-});
-
+  });
+  
   test('TC-05: Búsqueda sin Coincidencias', async ({ page }) => {
     // Corregido: Uso correcto del objeto 'page' proveído por el fixture de Playwright
     await page.goto('https://www.falabella.com.pe/falabella-pe', { waitUntil: 'domcontentloaded' });

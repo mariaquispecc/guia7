@@ -72,7 +72,8 @@ Reporte HTML:
 
 Reporte JSON:
 
-<img width="656" height="216" alt="image" src="https://github.com/user-attachments/assets/3f3ccc86-bf42-4340-b54c-85ac2396e323" />
+<img width="1058" height="674" alt="image" src="https://github.com/user-attachments/assets/3411c604-0f55-4b40-9f6d-d1981c5a107e" />
+
 
 ## Conclusiones
 
